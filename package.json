@@ -5,16 +5,19 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@sailshq/lodash": "^3.10.3",
+    "dotenv": "^16.0.3",
     "sails": "^1.5.3",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
-    "@sailshq/lodash": "^3.10.3"
+    "sails-mongo": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "5.16.0"
   },
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start:dev": "node app.js",
+    "start": "node app.js",
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
