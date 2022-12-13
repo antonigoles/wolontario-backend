@@ -7,7 +7,11 @@
   "dependencies": {
     "@sailshq/lodash": "^3.10.3",
     "dotenv": "^16.0.3",
+    "nodemailer": "^6.8.0",
+    "nodemailer-express-handlebars": "^5.0.0",
+    "nodemailer-sendgrid": "^1.0.3",
     "sails": "^1.5.3",
+    "sails-hook-organics": "^2.2.1",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
     "sails-mongo": "^2.0.0"

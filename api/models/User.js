@@ -5,6 +5,7 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
+
 module.exports = {
   tableName: "Users",
   attributes: {
@@ -12,7 +13,7 @@ module.exports = {
     surname:                      { type: 'string', columnName: 'surname', required: true },
     email:                        { type: 'string', required: true, unique: true, },
     emailStatus:                  { type: 'string', isIn: ['unconfirmed', 'confirmed'], 
-                                    defaultsTo: 'unconfirmed', columnName: 'email_status' },
+                                    defaultsTo: 'confirmed', columnName: 'email_status' },
     emailProofToken:              { type: 'string', columnName: 'email_proof_token' },
     emailProofTokenExpiresAt:     { type: 'number', columnName: 'email_proof_token_expires_at' },
     password:                     { type: 'string', required: true },
@@ -52,7 +53,15 @@ module.exports = {
 
   },
 
-  customToJson: function() {
+  beforeCreate: async (values, proceed) => {
+    const hashedPassword = await sails.helpers.passwords.hashPassword(
+      values.password
+    );
+    values.password = hashedPassword;
+    return proceed()
+  },
+
+  customToJson: () => {
     return _.omit(this, ["password"])
   }
 
