@@ -14,6 +14,7 @@ module.exports.routes = {
 
     "GET /": "home/index",
 
+    'GET /user/profile': 'user/get-profile',
     'GET /user/confirm': 'user/confirm',
     'POST /user/register': 'user/register',
     'POST /user/login': 'user/login',

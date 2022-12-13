@@ -61,7 +61,7 @@ module.exports = {
     return proceed()
   },
 
-  customToJson: () => {
+  customToJSON: function() {
     return _.omit(this, ["password"])
   }
 

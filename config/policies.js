@@ -10,6 +10,7 @@
 
 module.exports.policies = {
 
-  "user/login": 'can-login'
+  "user/login": 'can-login',
+  "user/get-profile": 'isAuthenticated',
 
 };
