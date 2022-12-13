@@ -8,16 +8,16 @@
 module.exports = {
   tableName: "GroupMembers",
   attributes: {
+    isAdmin: {
+      type: 'boolean',
+      defaultsTo: false
+    },
     user: {
       model: 'user'
     },
     group: {
       model: 'group'
     },
-    isAdmin: {
-      type: 'boolean',
-      defaultsTo: false
-    }
   },
 
 };

@@ -31,7 +31,7 @@ module.exports = {
 
     groups: {
       collection: 'group',
-      via: 'members',
+      via: 'user',
       through: 'groupmember'
     },
 

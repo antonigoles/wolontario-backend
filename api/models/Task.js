@@ -26,7 +26,7 @@ module.exports = {
       model: 'TaskCategory'
     },
     taskReports: {
-      collection: 'TaskReports',
+      collection: 'TaskReport',
       via: 'task'
     },
     subTasks: {

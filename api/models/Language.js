@@ -7,8 +7,6 @@
 
 const utils = require("../../utils")
 
-console.log( utils.language.getLanguageCodes() )
-
 module.exports = {
   tableName: "Languages",
   attributes: {
