@@ -133,3 +133,5 @@ lib-cov
 *.pid
 .env
 
+runngrok.sh
+

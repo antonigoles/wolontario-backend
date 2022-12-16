@@ -25,11 +25,11 @@ module.exports = {
     },
     notAUser: {
       statusCode: 404,
-      description: "User not found",
+      description: "Nie ma takiego użytkownika",
     },
     passwordMismatch: {
       statusCode: 401,
-      description: "Password do not match",
+      description: "Złe hasło",
     },
     operationalError: {
       statusCode: 400,

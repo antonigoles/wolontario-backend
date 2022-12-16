@@ -19,7 +19,7 @@ module.exports = {
     password: {
       type: 'string',
       required: true,
-      minLength: 6,
+      minLength: 8,
     }
   },
 
@@ -74,7 +74,7 @@ module.exports = {
       if (error.code === 'E_UNIQUE') {
         return exits.emailAlreadyInUse({
           message: 'Oops :) an error occurred',
-          error: 'This email address already exits',
+          error: 'Ten adres mailowy jest już zajęty',
         });
       }
 
