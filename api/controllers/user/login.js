@@ -25,11 +25,11 @@ module.exports = {
     },
     notAUser: {
       statusCode: 404,
-      description: "Nie ma takiego użytkownika",
+      description: "Nie ma takiego uzytkownika",
     },
     passwordMismatch: {
       statusCode: 401,
-      description: "Złe hasło",
+      description: "Zle haslo",
     },
     operationalError: {
       statusCode: 400,
@@ -40,17 +40,18 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     try {
+      // sails.log.info( inputs.email )
       const user = await User.findOne({ email: inputs.email });
 
       if (!user) {
         return exits.notAUser({
-          error: `An account belonging to ${inputs.email} was not found`,
+          error: `Nie ma takiego uzytkownika`,
         });
       }
       await sails.helpers.passwords
         .checkPassword(inputs.password, user.password)
         .intercept('incorrect', (error) => {
-          exits.passwordMismatch({ error: error.message });
+          exits.passwordMismatch({ error: "Zle haslo" });
       });
       const token = await sails.helpers.generateNewJwtToken(user.email);
       this.req.me = user;

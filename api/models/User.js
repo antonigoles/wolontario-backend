@@ -20,6 +20,22 @@ module.exports = {
     passwordResetToken:           { type: 'string', columnName: 'password_reset_token', },
     passwordResetTokenExpiresAt:  { type: 'number', columnName: 'password_reset_token_expires_at', },
     
+    avatarUrl: {
+      type: 'string',
+      defaultsTo: "null"
+    },
+
+    avatarFd: {
+      type: 'string',
+      defaultsTo: "null"
+    },
+
+    avatarImageType: {
+      type: 'string',
+      defaultsTo: "null"
+    },
+
+
     taskReports: {
       collection: 'TaskReport',
       via: 'user'
@@ -62,7 +78,7 @@ module.exports = {
   },
 
   customToJSON: function() {
-    return _.omit(this, ["password"])
+    return _.omit(this, ["password", "avatarFd"])
   }
 
 };

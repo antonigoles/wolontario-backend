@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-  friendlyName: 'Verify JWT',
-  description: 'Verify a JWT token.',
+  friendlyName: 'Verify account ownership',
+  description: 'Verify account ownership.',
   inputs: {
     req: {
       type: 'ref',
@@ -20,6 +20,9 @@ module.exports = {
   exits: {
     invalid: {
       description: 'Invalid token or no authentication present.',
+    },
+    notAccountOwner: {
+        description: 'JWT verification failed (email not equal).',
     }
   },
   fn: (inputs, exits) => {
@@ -29,15 +32,14 @@ module.exports = {
       // if one exists, attempt to get the header data
       var token = req.header('authorization').split('Bearer ')[1]
       // if there's nothing after "Bearer", no go
+      console.log(token)
       if (!token) return exits.invalid()
       // if there is something, attempt to parse it as a JWT token
       return jwt.verify(token, process.env.JWT_SECRET, async (err, payload) => {
         if (err || !payload.sub) return exits.invalid()
-        var user = await User.findOne({ email: payload.sub })
-        if (!user) return exits.invalid()
-        // if it got this far, everything checks out, success
-        req.user = user
-        return exits.success(user)
+        if ( payload.sub != req.body.email ) 
+        if (!user) return exits.notAccountOwner()
+        return exits.success()
       })
     }
     return exits.invalid()

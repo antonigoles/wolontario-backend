@@ -20,6 +20,10 @@ module.exports = {
       type: 'string',
       required: true,
       minLength: 8,
+    },
+    tosAccepted: {
+      type: 'boolean',
+      required: true,
     }
   },
 
@@ -31,7 +35,11 @@ module.exports = {
     },
     emailAlreadyInUse: {
       statusCode: 400,
-      description: 'Email address already in use',
+      description: 'Email jest juz zajety',
+    },
+    tosNotAccepted: {
+      statusCode: 403,
+      description: "Musisz zaakceptowac ToS"
     },
     error: {
       description: 'Something went wrong',
@@ -41,6 +49,12 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     try {
+      if ( !inputs.tosAccepted ) {
+        return exits.tosNotAccepted({
+          message: 'Oops :) an error occurred',
+          error: 'Musisz zaakceptowac ToS',
+        })
+      }
       const newEmailAddress = inputs.email.toLowerCase();
       const token = await sails.helpers.strings.random('url-friendly');
       let newUser = await User.create({
@@ -74,7 +88,7 @@ module.exports = {
       if (error.code === 'E_UNIQUE') {
         return exits.emailAlreadyInUse({
           message: 'Oops :) an error occurred',
-          error: 'Ten adres mailowy jest już zajęty',
+          error: 'Ten adres mailowy jest już zajety',
         });
       }
 

@@ -16,13 +16,14 @@ module.exports.routes = {
 
     'GET /user/profile': 'user/get-profile',
     'GET /user/confirm': 'user/confirm',
+    'GET /user/avatar/:userid': 'user/avatar',
     'POST /user/register': 'user/register',
     'POST /user/login': 'user/login',
+    'POST /user/upload-avatar': 'user/uploadavatar',
 
-    'POST /skills/': 'skills/add'
+    'POST /skills/': 'skills/add',
 
-
-
+    
     
 
 

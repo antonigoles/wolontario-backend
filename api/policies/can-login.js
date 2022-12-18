@@ -1,10 +1,10 @@
 module.exports = async function (req, res, next) {
-    const { email } = req.allParams();
+    const { email } = req.body;
     try {
       const user = await User.findOne({ email: email });
       if (!user) {
         res.status(404).json({
-          error: `${email} does not belong to a user`,
+          error: `Nie ma takiego użytkownika`,
         });
       } else if (user.emailStatus === 'unconfirmed') {
         res.status(401).json({

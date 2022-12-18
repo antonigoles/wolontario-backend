@@ -12,5 +12,6 @@ module.exports.policies = {
 
   "user/login": 'can-login',
   "user/get-profile": 'isAuthenticated',
+  "user/uploadavatar": 'isAuthenticated'
 
 };
