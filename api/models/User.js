@@ -20,6 +20,11 @@ module.exports = {
     passwordResetToken:           { type: 'string', columnName: 'password_reset_token', },
     passwordResetTokenExpiresAt:  { type: 'number', columnName: 'password_reset_token_expires_at', },
     
+    aboutme: {
+      type: 'string',
+      defaultsTo: ''
+    },
+
     avatarUrl: {
       type: 'string',
       defaultsTo: "null"
