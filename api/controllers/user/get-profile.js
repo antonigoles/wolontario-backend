@@ -8,9 +8,9 @@ module.exports = {
 
 
   inputs: {
-    email: {
+    userid: {
       type: 'string',
-      required: true,
+      require: true,
     }
   },
 
@@ -27,25 +27,12 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
-    try {
-      const user = await User.findOne({ email: inputs.email }).populate('skills')
-      if ( !user ) {
-        exits.notAUser({
-          error: `An account belonging to ${inputs.email} was not found`,
-        });
-      }
-      exits.success({
-        data: user
-      })
-    }
-    catch(error) {
-      exits.error({
-        error: error.message,
-      })
-    }
-    
-    // All done.
-    return;
+    const userid = inputs.userid
+    User.findOne( { id: userid }, ).exec( (err, user) => { 
+      if ( err ) return exits.error({ message: "Internal server error", error: err } )
+      if ( !user ) return exits.notAUser({ message: "Nie ma takiego użytkownika" })
+      return exits.success({ message: JSON.parse(JSON.stringify(user)) })
+    })
 
   }
 

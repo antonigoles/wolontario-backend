@@ -63,14 +63,13 @@ module.exports = {
     },
 
     languages: {
-      collection: 'language',
-      via: 'user',
+      type: 'json',
+      defaultsTo: [],
     },
 
     skills: {
-      collection: 'skill',
-      via: 'user',
-    }
+      type: 'json'
+    },
 
   },
 
@@ -83,7 +82,10 @@ module.exports = {
   },
 
   customToJSON: function() {
-    return _.omit(this, ["password", "avatarFd"])
+    return _.omit(this, 
+      ["password", "avatarFd", "passwordResetToken", 
+      "passwordResetTokenExpiresAt", "emailProofToken", 
+      "emailProofTokenExpiresAt"])
   }
 
 };

@@ -36,7 +36,6 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     const res = this.res;
-    console.log(inputs.userid)
     User.findOne( { id: inputs.userid } ).exec( (err, user) => {
       if ( err ) return exits.error({ message: "Wewnętrzny problem serwera" })
       if ( !user ) return exits.notAUser({ message: "Nie ma takiego użytkownika" })

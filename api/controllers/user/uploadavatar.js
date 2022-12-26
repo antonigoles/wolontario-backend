@@ -13,9 +13,6 @@ module.exports = {
       example: '===',
       required: true,
     },
-    email: {
-      type: 'string'
-    }
   },
 
 
@@ -67,8 +64,6 @@ module.exports = {
             error: err.message,
           })
         }
-
-        console.log( uploadedFiles[0] );
 
         const baseUrl = sails.config.custom.baseUrl;
         User.updateOne( { email: req.user.email }, {
