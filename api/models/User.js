@@ -68,7 +68,8 @@ module.exports = {
     },
 
     skills: {
-      type: 'json'
+      type: 'json',
+      defaultsTo: [],
     },
 
   },

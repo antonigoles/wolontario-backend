@@ -1,14 +1,16 @@
+const utils = require("../../../utils")
+
 module.exports = {
 
 
-  friendlyName: 'Updateskills',
+  friendlyName: 'Updatelangs',
 
 
-  description: 'Updateskills user.',
+  description: 'Updatelangs user.',
 
 
   inputs: {
-    newSkillsArray: {
+    newLangsArray: {
       type: 'json',
       require: true,
     }
@@ -36,37 +38,40 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     const userid = this.req.user.id
+    const acceptedCodes = utils.language.getLanguageCodes()
+    const skillLevels = utils.language.getAcceptedSkillLevels()
+
     User.findOne( { id: userid }, ).exec( (err, user) => { 
       if ( err ) return exits.error({ message: "Internal server error"} )
       if ( !user ) return exits.notAUser({ message: "Błąd weryfikacji JWT" })
       
 
       // verify new Skills array
-      if ( !Array.isArray(inputs.newSkillsArray) ) 
+      if ( !Array.isArray(inputs.newLangsArray) ) 
         return exits.incorrectInput({ message: "Zły format, nie przekazano listy" })
 
-      const parsed = inputs.newSkillsArray.map( skill => {
+      const parsed = inputs.newLangsArray.map( lang => {
         return { 
-          name: skill["name"], 
-          description: skill["description"], 
-          level: skill["level"],
+          code: lang["code"],
+          level: lang["level"],
         }
       } )
 
 
-      for ( const skill of parsed ) {
-        if (  skill["name"] == undefined || skill["description"] == undefined || skill["level"] == undefined ) {
+      for ( const lang of parsed ) {
+        if (  !acceptedCodes.includes(lang["code"]) || !skillLevels.includes(lang["level"]) ) {
           return exits.incorrectInput({ message: "Zły format, nie przekazano odpowiednich danych" })
         }
       }
 
-      User.updateOne({ id: userid }, { skills: parsed }).exec( err => {
+      User.updateOne({ id: userid }, { languages: parsed }).exec( err => {
         if (err) return exits.error({ message: "Wewnętrzny błąd serwera"})
-        return exits.success({ message: "Pomyślnie zaaktualizowano umiejętności"})
+        return exits.success({ message: "Pomyślnie zaaktualizowano języki"})
       })
       
 
     })
+
   }
 
 

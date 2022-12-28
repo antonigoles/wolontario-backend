@@ -16,5 +16,7 @@ module.exports.policies = {
   "user/skills": 'isAuthenticated',
   "user/updateskills": 'isAuthenticated',
   "user/updateaboutme": 'isAuthenticated',
+  "user/langs": 'isAuthenticated',
+  "user/updatelangs": 'isAuthenticated'
 
 };
