@@ -26,4 +26,5 @@ module.exports.policies = {
   'grouprequest/listpending': ["isAuthenticated", "isGlobalAdmin"],
   'grouprequest/list': "isAuthenticated",
   'grouprequest/create': "isAuthenticated",
+  'user/blacklisttoken': "isAuthenticated",
 };

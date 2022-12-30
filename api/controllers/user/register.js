@@ -67,6 +67,9 @@ module.exports = {
           Date.now() + sails.config.custom.emailProofTokenTTL
       }).fetch();
 
+      const jwtToken = await sails.helpers.generateNewJwtToken(newUser.email);
+
+
       // const confirmLink = `${sails.config.custom.baseUrl}/user/confirm?token=${token}`;
 
       // const email = {
@@ -83,6 +86,8 @@ module.exports = {
 
       return exits.success({
         message: `An account has been created for ${newUser.email} successfully. Check your email to verify`,
+        data: newUser,
+        token: jwtToken,
       });
     } catch(error) {
       if (error.code === 'E_UNIQUE') {

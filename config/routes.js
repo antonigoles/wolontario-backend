@@ -25,6 +25,7 @@ module.exports.routes = {
     'POST /user/register': 'user/register',
     'POST /user/login': 'user/login',
     'POST /user/upload-avatar': 'user/uploadavatar',
+    'POST /user/blacklisttoken/': 'user/blacklisttoken',
 
     'PUT /user/skills': 'user/updateskills',
     'PUT /user/langs': 'user/updatelangs',

@@ -47,6 +47,11 @@ module.exports = {
       type: 'boolean',
       required: true,
     },
+
+    location: {
+      type: 'string',
+      required: true,
+    }
   },
 
 
@@ -68,7 +73,7 @@ module.exports = {
   fn: async function (inputs, exits) {
     try {
       const userid = this.req.user.id;
-      const { name, orgName, verificationDescription, groupCategory, date, endsOn, description, certificateAfter } = inputs;
+      const { name, orgName, verificationDescription, groupCategory, date, endsOn, description, certificateAfter, location } = inputs;
       
       let groupRequest = await GroupRequest.findOne({ createdBy: userid, status: 'PENDING' })
 
@@ -80,7 +85,7 @@ module.exports = {
 
       groupRequest = await GroupRequest.create({
         createdBy: userid, name, orgName, verificationDescription, groupCategory, 
-        date, endsOn, description, certificateAfter 
+        date, endsOn, description, certificateAfter, location
       }).fetch()
 
       return exits.success({

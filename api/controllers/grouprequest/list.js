@@ -13,14 +13,31 @@ module.exports = {
 
 
   exits: {
-
+    success: {
+      message: "success",
+    },
+    error: {
+      statusCode: 500,
+      message: "Internal server error"
+    }
   },
 
 
-  fn: async function (inputs) {
+  fn: async function (_, exits) {
+    try {
+      const requests = await GroupRequest.find({ createdBy: this.req.user.id, })
 
-    // All done.
-    return;
+      return exits.success({
+        message: requests
+      })
+
+    } catch(err) {
+      console.log(err)
+      return exits.error({
+        error: "Internal server error"
+      })
+    }
+    
 
   }
 
