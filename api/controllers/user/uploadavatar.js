@@ -67,7 +67,7 @@ module.exports = {
 
         const baseUrl = sails.config.custom.baseUrl;
         User.updateOne( { email: req.user.email }, {
-          avatarUrl: require('util').format('%s/user/avatar/%s', baseUrl, req.user.id ),
+          avatarUrl: require('util').format('/user/avatar/%s', req.user.id ),
           avatarFd: uploadedFiles[0].fd,
           avatarImageType: headers['content-type'],
         }).exec( (err) => {

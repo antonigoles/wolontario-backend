@@ -28,7 +28,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     const userid = inputs.userid
-    User.findOne( { id: userid }, ).exec( (err, user) => { 
+    User.findOne( { id: userid } ).exec( (err, user) => { 
       if ( err ) return exits.error({ message: "Internal server error", error: err } )
       if ( !user ) return exits.notAUser({ message: "Nie ma takiego użytkownika" })
       return exits.success({ message: JSON.parse(JSON.stringify(user)) })

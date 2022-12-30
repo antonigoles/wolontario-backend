@@ -14,11 +14,13 @@ module.exports.routes = {
 
     "GET /": "home/index",
 
+    // USER
     'GET /user/profile/:userid': 'user/get-profile',
     'GET /user/confirm': 'user/confirm',
     'GET /user/avatar/:userid': 'user/avatar',
     'GET /user/skills': 'user/skills',
     'GET /user/langs': 'user/langs',
+    'GET /user/groups': 'user/groups',
 
     'POST /user/register': 'user/register',
     'POST /user/login': 'user/login',
@@ -28,10 +30,22 @@ module.exports.routes = {
     'PUT /user/langs': 'user/updatelangs',
     'PUT /user/aboutme': 'user/updateaboutme',
 
-
+    // SKILLS
     'POST /skills/': 'skills/add',
 
+    // GROUP
+    'GET /group/:groupid': "group/get",
+
+    'POST /group/': 'group/add', 
+    'POST /group/member': 'group/adduser',
+
     
+    // GROUP REQUEST
+    'GET /grouprequest/pending': 'grouprequest/listpending',
+    'GET /grouprequest/list': 'grouprequest/list',
+
+    'POST /grouprequest/': 'grouprequest/create',
+    'PUT /grouprequest/updatestatus': 'grouprequest/updatestatus',
     
 
 

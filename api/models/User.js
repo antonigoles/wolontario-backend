@@ -72,6 +72,11 @@ module.exports = {
       defaultsTo: [],
     },
 
+    isGlobalAdmin: {
+      type: 'boolean',
+      defaultsTo: false,
+    }
+
   },
 
   beforeCreate: async (values, proceed) => {
