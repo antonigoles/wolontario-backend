@@ -75,7 +75,13 @@ module.exports = {
     isGlobalAdmin: {
       type: 'boolean',
       defaultsTo: false,
-    }
+    },
+
+    trusted: {
+      type: 'boolean',
+      defaultsTo: false,
+    },
+
 
   },
 

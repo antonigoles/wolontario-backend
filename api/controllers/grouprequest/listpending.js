@@ -25,10 +25,19 @@ module.exports = {
 
   fn: async function (_, exits) {
     try {
-      const requests = await GroupRequest.find({ status: 'PENDING' })
+      const requests = await GroupRequest.find({ status: 'PENDING' }).populate('createdBy')
 
       return exits.success({
-        message: requests
+        message: requests.map ( request => {
+          return {
+            ...request,
+            createdBy: {
+              name: request.createdBy.name,
+              surname: request.createdBy.surname,
+              trusted: request.createdBy.trusted,
+            }
+          }
+        })
       })
 
     } catch(err) {
