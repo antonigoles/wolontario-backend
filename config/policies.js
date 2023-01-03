@@ -20,11 +20,13 @@ module.exports.policies = {
   "user/updatelangs": 'isAuthenticated',
   'user/groups': "isAuthenticated",
   'group/add': ["isAuthenticated", "isGlobalAdmin"],
-  'group/get': "isAuthenticated",
+  'group/list': "isAuthenticated",
   'group/adduser': ["isAuthenticated", "isGlobalAdmin"],
   'grouprequest/updatestatus': ["isAuthenticated", "isGlobalAdmin"],
   'grouprequest/listpending': ["isAuthenticated", "isGlobalAdmin"],
   'grouprequest/list': "isAuthenticated",
   'grouprequest/create': "isAuthenticated",
   'user/blacklisttoken': "isAuthenticated",
+  'group/get': ["isAuthenticated", "isGroupMember"],
+  'group/avatar': [ "isAuthenticated", "isGroupMember" ]
 };

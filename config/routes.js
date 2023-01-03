@@ -36,6 +36,8 @@ module.exports.routes = {
 
     // GROUP
     'GET /group/:groupid': "group/get",
+    'GET /group/avatar/:groupid': "group/avatar",
+    'GET /group/list': "group/list",
 
     'POST /group/': 'group/add', 
     'POST /group/member': 'group/adduser',

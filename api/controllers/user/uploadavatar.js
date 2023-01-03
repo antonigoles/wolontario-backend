@@ -49,14 +49,14 @@ module.exports = {
       })
     }
 
-    if ( byteCount > 5000000 ) {
+    if ( byteCount > 2000000 ) {
       return exits.fileTooBig({
         message: "Plik zbyt duży! (Max ~5MB)"
       })
     } 
 
     await inputs.avatar.upload({
-      maxBytes: 5000000,  
+      maxBytes: 2000000,  
     },
       function (err, uploadedFiles) {
         if (err) {
