@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-var nodemailerSendgrid = require("nodemailer-sendgrid");
 const hbs = require("nodemailer-express-handlebars");
+require('dotenv').config()
 module.exports = {
   friendlyName: "Send mail",
   description: "",
@@ -17,9 +17,14 @@ module.exports = {
   },
   fn: async function (inputs) {
     const transporter = nodemailer.createTransport(
-      nodemailerSendgrid({
-        apiKey: sails.config.sendGridAPIkey || process.env.SENDGRID_API_KEY,
-      })
+      {
+        host: "send.smtp.mailtrap.io",
+        port: 587,
+        auth: {
+          user: process.env.MAILTRAP_USERNAME,
+          pass: process.env.MAILTRAP_PASS,
+        }
+      }
     );
     transporter.use(
       "compile",
@@ -36,7 +41,7 @@ module.exports = {
     );
     try {
       let emailOptions = {
-        from: "Wolontario <alert@wolontario.com>",
+        from: "Wolontario <noreply@wolontario.pl>",
         ...inputs.options,
       };
       await transporter.sendMail(emailOptions);

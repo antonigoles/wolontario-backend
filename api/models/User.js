@@ -13,7 +13,9 @@ module.exports = {
     surname:                      { type: 'string', columnName: 'surname', required: true },
     email:                        { type: 'string', required: true, unique: true, },
     emailStatus:                  { type: 'string', isIn: ['unconfirmed', 'confirmed'], 
-                                    defaultsTo: 'confirmed', columnName: 'email_status' },
+                                    defaultsTo: 'unconfirmed', columnName: 'email_status' },
+
+    lastEmailSentAt:              { type: 'number', defaultsTo: 0 },
     emailProofToken:              { type: 'string', columnName: 'email_proof_token' },
     emailProofTokenExpiresAt:     { type: 'number', columnName: 'email_proof_token_expires_at' },
     password:                     { type: 'string', required: true },

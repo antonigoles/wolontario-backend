@@ -10,6 +10,11 @@
 
 module.exports.routes = {
 
+    // RCON
+    'GET /rcon/showuser/': 'rcon/showuser',
+    
+    'PUT /rcon/setadmin/': 'rcon/setadmin',
+    'PUT /rcon/deleteuser/': 'rcon/deleteuser',
 
 
     "GET /": "home/index",
@@ -26,6 +31,8 @@ module.exports.routes = {
     'POST /user/login': 'user/login',
     'POST /user/upload-avatar': 'user/uploadavatar',
     'POST /user/blacklisttoken/': 'user/blacklisttoken',
+    'POST /user/confirm-email/': 'user/confirm',
+    'POST /user/reset-email-token/': 'user/resetemailtoken',
 
     'PUT /user/skills': 'user/updateskills',
     'PUT /user/langs': 'user/updatelangs',

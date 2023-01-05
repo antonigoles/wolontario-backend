@@ -3,6 +3,11 @@
 .env file specs
 
 ```
+
+MAILTRAP_USERNAME={Mailtrap username}
+MAILTRAP_PASS={Mailtrap pass}
+
+RCON_PASS={RCON PASS}
 JWT_SECRET={JWT secret}
 
 MONGO_PASS={MongoDB user's password}

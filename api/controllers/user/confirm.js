@@ -8,24 +8,32 @@ module.exports = {
 
 
   inputs: {
+    email: {
+      type: 'string',
+      required: true,
+    },
     token: {
       type: 'string',
-      description: "The confirmation token from the email.",
-      example: "4-32fad81jdaf$329",
+      required: true,
     },
   },
 
 
   exits: {
     success: {
+      statusCode: 200,
       description: "Email address confirmed and requesting user logged in.",
     },
     invalidOrExpiredToken: {
-      statusCode: 400,
-      description:
-        "The provided token is expired, invalid, or already used up.",
+      statusCode: 403,
+      description: "The provided token is expired or invalid",
+    },
+    emailAlreadyConfirmed: {
+      statusCode: 403,
+      description: "Email already confirmed"
     },
     error: {
+      statusCode: 500,
       description: 'Something went wrong',
     },
   },
@@ -35,15 +43,17 @@ module.exports = {
     try {
       if (!inputs.token) {
         return exits.invalidOrExpiredToken({
-          error: "The provided token is expired, invalid, or already used up.",
+          error: "Niepoprawny kod",
         });
       }
   
-      let user = await User.findOne({ emailProofToken: inputs.token });
+      const lowercaseEmail = inputs.email.toLowerCase();
+
+      let user = await User.findOne({ email: lowercaseEmail, emailProofToken: inputs.token });
   
-      if (!user || user.emailProofTokenExpiresAt <= Date.now()) {
+      if (!user || user.emailProofTokenExpiresAt <= Date.now() ) {
         return exits.invalidOrExpiredToken({
-          error: "The provided token is expired, invalid, or already used up.",
+          error: "Niepoprawny kod albo stracił swoją ważność",
         });
       }
   
@@ -54,7 +64,7 @@ module.exports = {
           emailProofTokenExpiresAt: 0,
         });
         return exits.success({
-          message: "Your account has been confirmed",
+          message: "Twoje konto zostało zweryfikowane",
         });
       } 
     } catch(error) {

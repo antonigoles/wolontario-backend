@@ -55,8 +55,32 @@ module.exports = {
           error: 'Musisz zaakceptowac ToS',
         })
       }
+
+
       const newEmailAddress = inputs.email.toLowerCase();
-      const token = await sails.helpers.strings.random('url-friendly');
+      const token = "XXXXXX".split("").map( e => Math.floor( Math.random() * 10 ) ).join("");
+      
+      const existingUser = await User.findOne({ email: newEmailAddress });
+
+      const FortyFiveSecs = 1000*45;
+      const OneHour = 1000*60*60;
+
+      if ( existingUser && existingUser.emailStatus == 'unconfirmed' ) {
+        const hashedPassword = await sails.helpers.passwords.hashPassword(
+          inputs.password
+        );
+        await User.updateOne({ email: newEmailAddress }, {
+          name: inputs.name,
+          surname: inputs.surname,
+          password: hashedPassword,
+        })
+
+        return exits.success({
+          message: `An account has been created for ${existingUser.email} successfully. Check your email to verify`,
+          nextEmailAvailableIn: Math.max(0, FortyFiveSecs - (Date.now() - existingUser.lastEmailSentAt)),
+        });
+      }
+
       let newUser = await User.create({
         name: inputs.name,
         surname: inputs.surname,
@@ -64,36 +88,31 @@ module.exports = {
         email: newEmailAddress,
         emailProofToken: token,
         emailProofTokenExpiresAt: 
-          Date.now() + sails.config.custom.emailProofTokenTTL
+          Date.now() + OneHour, //1 hour
+        lastEmailSentAt: Date.now(),
       }).fetch();
 
-      const jwtToken = await sails.helpers.generateNewJwtToken(newUser.email);
+      const email = {
+        to: newUser.email,
+        subject: 'Potwierdź rejestracje',
+        template: 'confirm',
+        context: {
+          name: `${newUser.name} ${newUser.surname}`,
+          confirmCode: token,
+        }
+      }
 
-
-      // const confirmLink = `${sails.config.custom.baseUrl}/user/confirm?token=${token}`;
-
-      // const email = {
-      //   to: newUser.email,
-      //   subject: 'Potwierdź rejestracje',
-      //   template: 'confirm',
-      //   context: {
-      //     name: `${newUser.name} ${newUser.surname}`,
-      //     confirmLink: confirmLink,
-      //   }
-      // }
-
-      // await sails.helpers.sendMail(email);
+      await sails.helpers.sendMail(email);
 
       return exits.success({
         message: `An account has been created for ${newUser.email} successfully. Check your email to verify`,
-        data: newUser,
-        token: jwtToken,
+        nextEmailAvailableIn: Math.max(0, FortyFiveSecs - (Date.now() - newUser.lastEmailSentAt)),
       });
     } catch(error) {
       if (error.code === 'E_UNIQUE') {
         return exits.emailAlreadyInUse({
           message: 'Oops :) an error occurred',
-          error: 'Ten adres mailowy jest już zajety',
+          error: 'Ten adres mailowy jest już zajety, ',
         });
       }
 
