@@ -28,4 +28,8 @@ module.exports.policies = {
   'grouprequest/create': "isAuthenticated",
   'user/blacklisttoken': "isAuthenticated",
   'group/get': ["isAuthenticated", "isGroupMember"],
+  'group/is-user-admin': ["isAuthenticated", "isGroupMember"],
+  'group/postbroadcast': ["isAuthenticated", "isGroupAdmin"],
+  'group/broadcasts': ["isAuthenticated", "isGroupMember"],
+  'group/deletebroadcast': ["isAuthenticated", "isGroupAdmin"],
 };

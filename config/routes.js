@@ -42,13 +42,18 @@ module.exports.routes = {
     'POST /skills/': 'skills/add',
 
     // GROUP
-    'GET /group/:groupid': "group/get",
+    'GET /group/get/:groupid': "group/get",
     'GET /group/avatar/:groupid': "group/avatar",
     'GET /group/list': "group/list",
+    'GET /group/is-user-admin/:groupid': "group/is-user-admin",
+    'GET /group/broadcasts/:groupid': 'group/broadcasts',
 
     'POST /group/': 'group/add', 
     'POST /group/member': 'group/adduser',
+    'POST /group/broadcast': 'group/postbroadcast',
 
+
+    'DELETE /group/broadcast/': 'group/deletebroadcast',
     
     // GROUP REQUEST
     'GET /grouprequest/pending': 'grouprequest/listpending',

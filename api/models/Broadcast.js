@@ -6,11 +6,10 @@
  */
 
 module.exports = {
-  tableName: "Announcements",
+  tableName: "Broadcast",
   attributes: {
     group: {
-      collection: 'group',
-      via: 'announcements'
+      model: 'group',
     },
     title: {
       type: 'string',

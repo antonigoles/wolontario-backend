@@ -69,8 +69,8 @@ module.exports = {
       collection: 'TaskCategory',
       via: 'group',
     },
-    announcements: {
-      collection: 'announcement',
+    broadcasts: {
+      collection: 'Broadcast',
       via: 'group'
     },
     adverts: {

@@ -29,6 +29,13 @@ module.exports = {
     fn: async function (inputs, exits) {
       try {
         const groupid = inputs.groupid
+
+        // const groupMember = this.req.groupMember;
+
+        // if ( groupMember.isAdmin ) {
+        //   const group = await Group.findOne({ id: groupid })
+        // }
+
         const group = await Group.findOne({ id: groupid });
         
         return exits.success({
